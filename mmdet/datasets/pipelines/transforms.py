@@ -704,8 +704,23 @@ class Normalize:
                 result dict.
         """
         for key in results.get('img_fields', ['img']):
+            #results[key] = mmcv.imnormalize(results[key], self.mean, self.std,
+            #                                self.to_rgb)
+
+            # normalize rgb images
+            tmp = results[key]
+            results[key] = tmp[:,:,0:3]
             results[key] = mmcv.imnormalize(results[key], self.mean, self.std,
                                             self.to_rgb)
+            # normalize flow color images
+            flow = tmp[:,:,3:]
+            flow = mmcv.imnormalize(flow, self.mean, self.std,
+                                            self.to_rgb)
+            
+            tmp[:,:,0:3] = results[key]
+            tmp[:,:,3:] = flow
+            results[key] = tmp
+
         results['img_norm_cfg'] = dict(
             mean=self.mean, std=self.std, to_rgb=self.to_rgb)
         return results

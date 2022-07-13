@@ -70,6 +70,18 @@ class LoadImageFromFile:
         if self.to_float32:
             img = img.astype(np.float32)
 
+        # read flow color images
+        flow_filename = filename.replace('rgb-images', 'optical_flow_color_wheel')
+        flow_img_bytes = self.file_client.get(flow_filename)
+        flow_img = mmcv.imfrombytes(
+            flow_img_bytes, flag=self.color_type, channel_order=self.channel_order)
+        if self.to_float32:
+            flow_img = flow_img.astype(np.float32)
+        
+        # concat rgb and flow color images
+        concat_img = np.concatenate((img, flow_img), axis=2)
+        img = concat_img
+
         results['filename'] = filename
         results['ori_filename'] = results['img_info']['filename']
         results['img'] = img
