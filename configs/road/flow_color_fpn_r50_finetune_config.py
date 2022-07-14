@@ -63,3 +63,5 @@ model = dict(
         bbox_head=dict(num_classes=10)))
 
 evaluation=dict(classwise=True, metric='bbox')
+
+load_from = 'https://download.openmmlab.com/mmdetection/v2.0/faster_rcnn/faster_rcnn_r50_fpn_1x_coco/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth'
