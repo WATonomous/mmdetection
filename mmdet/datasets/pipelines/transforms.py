@@ -718,8 +718,8 @@ class Normalize:
                                             self.to_rgb)
             
             tmp[:,:,0:3] = results[key]
-            tmp[:,:,3:] = flow
-            results[key] = tmp
+            tmp[:,:,3:5] = flow[:, :, 1:3]
+            results[key] = tmp[:, :, :5]
 
         results['img_norm_cfg'] = dict(
             mean=self.mean, std=self.std, to_rgb=self.to_rgb)

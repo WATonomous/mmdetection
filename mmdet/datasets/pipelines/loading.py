@@ -70,8 +70,10 @@ class LoadImageFromFile:
         if self.to_float32:
             img = img.astype(np.float32)
 
-        # read flow color images
-        flow_filename = filename.replace('rgb-images', 'optical_flow_color_wheel')
+        # read flow images
+        flow_filename = filename.replace('rgb-images', 'optical_flow_normalized')
+        flow_filename = flow_filename.replace('jpg', 'png')
+
         flow_img_bytes = self.file_client.get(flow_filename)
         flow_img = mmcv.imfrombytes(
             flow_img_bytes, flag=self.color_type, channel_order=self.channel_order)
