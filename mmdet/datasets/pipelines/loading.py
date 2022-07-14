@@ -35,7 +35,7 @@ class LoadImageFromFile:
     """
 
     def __init__(self,
-                 to_float32=False,
+                 to_float32=True,
                  color_type='color',
                  channel_order='bgr',
                  file_client_args=dict(backend='disk')):
