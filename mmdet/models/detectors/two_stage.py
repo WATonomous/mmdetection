@@ -30,6 +30,8 @@ class TwoStageDetector(BaseDetector):
                           'please use "init_cfg" instead')
             backbone.pretrained = pretrained
         self.backbone = build_backbone(backbone)
+        
+        self.flow_backbone = build_backbone(backbone)
 
         if neck is not None:
             self.neck = build_neck(neck)
@@ -64,7 +66,19 @@ class TwoStageDetector(BaseDetector):
 
     def extract_feat(self, img):
         """Directly extract features from the backbone+neck."""
-        x = self.backbone(img)
+        
+        rgb_img = img[:,:3,:,:]
+        flow_img = img[:,3:,:,:]
+
+        x_rgb = self.backbone(rgb_img)
+        x_flow = self.flow_backbone(flow_img)
+        
+        x = []
+        # Add rgb and flow features        
+        for xx_rgb, xx_flow in zip(x_rgb, x_flow):
+            x.append(xx_rgb + xx_flow)
+        x = tuple(x)
+
         if self.with_neck:
             x = self.neck(x)
         return x
