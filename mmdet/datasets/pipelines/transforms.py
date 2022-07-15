@@ -717,9 +717,12 @@ class Normalize:
             flow = mmcv.imnormalize(flow, self.mean, self.std,
                                             self.to_rgb)
             
+            # calculate the magnitude
+            flow = np.sqrt(flow[:,:,1]**2 + flow[:,:,2]**2)
+
             tmp[:,:,0:3] = results[key]
-            tmp[:,:,3:5] = flow[:, :, 1:3]
-            results[key] = tmp[:, :, :5]
+            tmp[:,:,3] = flow
+            results[key] = tmp[:, :, :4]
 
         results['img_norm_cfg'] = dict(
             mean=self.mean, std=self.std, to_rgb=self.to_rgb)
