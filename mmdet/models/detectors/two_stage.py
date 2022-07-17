@@ -74,9 +74,9 @@ class TwoStageDetector(BaseDetector):
         x_flow = self.flow_backbone(flow_img)
         
         x = []
-        # Add rgb and flow features        
+        # Concat rgb and flow features        
         for xx_rgb, xx_flow in zip(x_rgb, x_flow):
-            x.append(xx_rgb + xx_flow)
+            x.append(torch.cat((xx_rgb, xx_flow), dim=1))
         x = tuple(x)
 
         if self.with_neck:
