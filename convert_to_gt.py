@@ -7,7 +7,7 @@ def detection_bbox_to_ava(bbox):
     return convbb
 
 annotation_path = './flow_color_model_fpn_x101_64x4d_finetune_val1_detections_inactive_merged.jsonl'
-output_path = './flow_color_model_fpn_x101_64x4d_finetune_val1_detections_inactive_merged_gt_format.jsonl'
+output_path = './flow_color_model_fpn_x101_64x4d_finetune_val1_detections_inactive_merged_gt_format.json'
 gt_path = '/road/road_trainval_v1.0.json'
 
 with open(gt_path, 'r') as f:
@@ -40,6 +40,7 @@ with open(annotation_path, "r") as f:
                 'action_ids': [1], # fake action ids
                 'score': label['score']
             }
+            # Set threshold
             if det['score'] > 0.3:
                 annos[str(box_count)] = det
                 box_count += 1
