@@ -3,8 +3,8 @@ import json
 
 #f = open('./frcnn_x101_val1.pkl','rb')
 #f = open('./frcnn_x101_val1_inactive.pkl','rb')
-#f = open('./frcnn_x101_val1_inactive_merged.pkl','rb')
-f = open('./flow_color_model_fpn_x101_64x4d_finetune_inactive_merged_results.pkl','rb')
+f = open('./frcnn_x101_val1_inactive_merged.pkl','rb')
+#f = open('./flow_color_model_fpn_x101_64x4d_finetune_inactive_merged_results.pkl','rb')
 data = pickle.load(f)
 
 #f2 = open('/home/liqq/project/699/road-dataset/coco_annotation_val1.json', 'r')
@@ -15,7 +15,7 @@ gt = json.load(f2)
 #output_path = "val1_detections.jsonl"
 #output_path = "val1_detections_inactive.jsonl"
 #output_path = "val1_detections_inactive_merged.jsonl"
-output_path = "flow_color_model_fpn_x101_64x4d_finetune_val1_detections_inactive_merged.jsonl"
+output_path = "./work_dirs/fpn_x101_64x4d_finetune_inactive_merged_config_old/val1_detections_inactive_merged_contains_empty.jsonl"
 
 num = len(gt['images'])
 for i in range(num):
