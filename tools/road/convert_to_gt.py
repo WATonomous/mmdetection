@@ -1,4 +1,5 @@
 import json
+import collections
 import numpy as np
 
 def detection_bbox_to_ava(bbox):
@@ -6,8 +7,8 @@ def detection_bbox_to_ava(bbox):
     convbb = [x1/1280, y1/960, x2/1280, y2/960]
     return convbb
 
-annotation_path = './work_dirs/fpn_x101_64x4d_finetune_inactive_merged_config_old/val1_detections_inactive_merged.jsonl'
-output_path = './work_dirs/fpn_x101_64x4d_finetune_inactive_merged_config_old/val1_detections_inactive_merged_gt_format_score_0.7.jsonl'
+annotation_path = './work_dirs/fpn_x101_64x4d_finetune_inactive_merged_config_old/val1_detections_inactive_merged_new.jsonl'
+output_path = './work_dirs/fpn_x101_64x4d_finetune_inactive_merged_config_old/val1_detections_inactive_merged_gt_format_score_0.7_new.jsonl'
 gt_path = '/road/road_trainval_v1.0.json'
 
 with open(gt_path, 'r') as f:
@@ -52,10 +53,21 @@ with open(annotation_path, "r") as f:
             db[video]['split_ids'] = gt['db'][video]['split_ids']
         db[video]['frames'][str(frame_id)] = frame
     output = {}
+
+    # sort by frame id
+    for video in db.keys():
+        tmp = db[video]['frames']
+        od = collections.OrderedDict(sorted(tmp.items(), key=lambda y: int(y[0])))
+        db[video]['frames'] = od
+
     output['db'] = db
     # json_string = json.dumps(output)
     with open(output_path, 'w') as outfile:
         json.dump(output, outfile)
+
+    for key in db.keys():
+        print(key)
+        print(len(db[key]['frames']))
 
 
 

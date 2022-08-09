@@ -29,12 +29,14 @@ data = dict(
         # explicitly add your class names to the field `classes`
         classes=classes,
         ann_file='/road/detections/coco_annotation_val1_inactive_merged.json',
+        #ann_file='./coco_annotation_val1.json',
         img_prefix='/road/'),
     test=dict(
         type=dataset_type,
         # explicitly add your class names to the field `classes`
         classes=classes,
         ann_file='/road/detections/coco_annotation_val1_inactive_merged.json',
+        #ann_file='./coco_annotation_val1.json',
         img_prefix='/road/'))
 
 # 2. model settings

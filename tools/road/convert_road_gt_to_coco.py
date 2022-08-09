@@ -26,11 +26,11 @@ def filter_labels(ids, all_labels, used_labels):
 if __name__ == '__main__':
 
     # save path for the coco format annotation
-    is_train_set = True
+    is_train_set = False
     if is_train_set:
         coco_anno_file = open('./coco_annotation_train1_quarter.json', 'w')
     else:
-        coco_anno_file = open('./coco_annotation_val1.json', 'w')
+        coco_anno_file = open('./coco_annotation_val1_new.json', 'w')
     
     p = argparse.ArgumentParser(description='extract frame from videos')
     p.add_argument('data_dir', type=str,
@@ -95,7 +95,10 @@ if __name__ == '__main__':
                 w, h = frame.size
 
                 # check if frame is annotated
-                if frame_id in frames.keys() and frames[frame_id]['annotated']>0:
+                #if frame_id in frames.keys() and frames[frame_id]['annotated']>0:
+                if frame_id in frames.keys():
+                    if frames[frame_id]['annotated'] == 0:
+                        frames[frame_id]['annos'] = {}
                     frame_annos = frames[frame_id]['annos']
 
                     image_info = dict(
@@ -137,9 +140,9 @@ if __name__ == '__main__':
                         out_json['annotations'].append(anno_info)
                         ann_id += 1
                     img_id += 1
-
-print(f'img_id: {img_id-1}')
-print(f'ann_id: {ann_id-1}')
+        
+print(f'img_id: {img_id}')
+print(f'ann_id: {ann_id}')
 
 json.dump(out_json, coco_anno_file)
 
