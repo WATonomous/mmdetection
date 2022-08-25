@@ -26,14 +26,14 @@ def filter_labels(ids, all_labels, used_labels):
 if __name__ == '__main__':
 
     # save path for the coco format annotation
-    is_train_set = False
+    is_train_set = True
     if is_train_set:
-        coco_anno_file = open('./coco_annotation_train1_quarter.json', 'w')
+        coco_anno_file = open('./coco_annotation_train3_quarter.json', 'w')
     else:
-        coco_anno_file = open('./coco_annotation_val1_new.json', 'w')
+        coco_anno_file = open('./coco_annotation_val3.json', 'w')
     
     p = argparse.ArgumentParser(description='extract frame from videos')
-    p.add_argument('data_dir', type=str,
+    p.add_argument('--data_dir', type=str,
                    help='Video directory where videos are saved.')
     args = p.parse_args()
     input_images_dir = os.path.join(args.data_dir, 'rgb-images')
@@ -62,9 +62,9 @@ if __name__ == '__main__':
     train_video_list = []
     val_video_list = []
     for i in final_annots['db'].keys():
-        if final_annots['db'][i]['split_ids'][1] == 'train_1':
+        if 'train_3' in final_annots['db'][i]['split_ids']:
             train_video_list.append(i)
-        if final_annots['db'][i]['split_ids'][1] == 'val_1':
+        if 'val_3' in final_annots['db'][i]['split_ids']:
             val_video_list.append(i)
 
     print('All video list:')
@@ -95,8 +95,8 @@ if __name__ == '__main__':
                 w, h = frame.size
 
                 # check if frame is annotated
-                #if frame_id in frames.keys() and frames[frame_id]['annotated']>0:
-                if frame_id in frames.keys():
+                if frame_id in frames.keys() and frames[frame_id]['annotated']>0:
+                #if frame_id in frames.keys():
                     if frames[frame_id]['annotated'] == 0:
                         frames[frame_id]['annos'] = {}
                     frame_annos = frames[frame_id]['annos']
