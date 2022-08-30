@@ -47,13 +47,11 @@ CLASSES = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
            'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush')
 
 # Detection results on ROAD dataset by the COCO pretrained model
-# with open('../mmdetection/train1_road_coco_detection_results_x101.pkl', 'rb') as f:
-with open('../mmdetection/val1_road_coco_detection_results_x101.pkl', 'rb') as f:
+with open('./road_annotations/coco_detection_on_train2_quarter.pkl', 'rb') as f:
     coco_data = pickle.load(f)
 
 # Ground-truth of ROAD dataset with COCO format annotation
-# with open('./coco_annotation_train1_quarter.json', 'rb') as f:
-with open('./coco_annotation_val1.json', 'rb') as f:
+with open('./road_annotations/coco_annotation_train2_quarter.json', 'rb') as f:
     road_data = json.load(f)
 
 image_num = len(road_data['images'])
@@ -76,7 +74,8 @@ for idx, anno in enumerate(road_data_anno):
 
 for image_id, xx in enumerate(coco_data):
     img_path = road_data['images'][image_id]['file_name']
-    print(image_id)
+    if image_id % 1000 == 0:
+        print(image_id)
     # print(img_path)
     image = cv2.imread(img_path)
     color1 = (255, 0, 0)
@@ -158,7 +157,6 @@ road_data['categories'] = categories
 print(len(road_data_anno))
 
 # save path for the new annotations
-# out_json = open('coco_annotation_train1_quarter_inactive.json', 'w')
-out_json = open('coco_annotation_val1_inactive.json', 'w')
+out_json = open('./road_annotations/coco_annotation_train2_quarter_inactive.json', 'w')
 json.dump(road_data, out_json)
 

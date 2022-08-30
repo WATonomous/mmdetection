@@ -28,9 +28,9 @@ if __name__ == '__main__':
     # save path for the coco format annotation
     is_train_set = True
     if is_train_set:
-        coco_anno_file = open('./coco_annotation_train3_quarter.json', 'w')
+        coco_anno_file = open('./road_annotations/coco_annotation_train2_quarter.json', 'w')
     else:
-        coco_anno_file = open('./coco_annotation_val3.json', 'w')
+        coco_anno_file = open('./coco_annotation_val2.json', 'w')
     
     p = argparse.ArgumentParser(description='extract frame from videos')
     p.add_argument('--data_dir', type=str,
@@ -62,9 +62,9 @@ if __name__ == '__main__':
     train_video_list = []
     val_video_list = []
     for i in final_annots['db'].keys():
-        if 'train_3' in final_annots['db'][i]['split_ids']:
+        if 'train_2' in final_annots['db'][i]['split_ids']:
             train_video_list.append(i)
-        if 'val_3' in final_annots['db'][i]['split_ids']:
+        if 'val_2' in final_annots['db'][i]['split_ids']:
             val_video_list.append(i)
 
     print('All video list:')
@@ -88,7 +88,7 @@ if __name__ == '__main__':
         frames = database['frames']
         frame_nums = [int(f) for f in frames.keys()]
         for frame_num in sorted(frame_nums): #loop from first frame to last
-            if (frame_num % 1 == 0):
+            if (frame_num % 4 == 0):
                 frame_id = str(frame_num)
                 img_path = input_images_dir + '/{:s}/{:05d}.jpg'.format(video_name, frame_num)
                 frame = Image.open(img_path)

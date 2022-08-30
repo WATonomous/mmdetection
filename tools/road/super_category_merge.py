@@ -14,10 +14,10 @@ import json
 # 5 Inactive
 
 # provide the annotation file
-anno_file = 'coco_annotation_train1_quarter_inactive.json'
+anno_file = './road_annotations/coco_annotation_train2_quarter_inactive.json'
 
 # path to save the new annotation with super-categories
-out_file = 'coco_annotation_train1_quarter_inactive_merged.json'
+out_file = './road_annotations/coco_annotation_train2_quarter_inactive_merged.json'
 
 with open(anno_file, 'r') as f:
     data = json.load(f)
