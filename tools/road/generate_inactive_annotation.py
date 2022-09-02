@@ -47,11 +47,11 @@ CLASSES = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
            'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush')
 
 # Detection results on ROAD dataset by the COCO pretrained model
-with open('./road_annotations/coco_detection_on_train2_quarter.pkl', 'rb') as f:
+with open('./road_annotations/coco_detection_on_all_quarter.pkl', 'rb') as f:
     coco_data = pickle.load(f)
 
 # Ground-truth of ROAD dataset with COCO format annotation
-with open('./road_annotations/coco_annotation_train2_quarter.json', 'rb') as f:
+with open('./road_annotations/coco_annotation_all_quarter.json', 'rb') as f:
     road_data = json.load(f)
 
 image_num = len(road_data['images'])
@@ -157,6 +157,6 @@ road_data['categories'] = categories
 print(len(road_data_anno))
 
 # save path for the new annotations
-out_json = open('./road_annotations/coco_annotation_train2_quarter_inactive.json', 'w')
+out_json = open('./road_annotations/coco_annotation_all_quarter_inactive.json', 'w')
 json.dump(road_data, out_json)
 

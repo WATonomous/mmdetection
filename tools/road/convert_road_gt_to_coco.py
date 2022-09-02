@@ -28,7 +28,7 @@ if __name__ == '__main__':
     # save path for the coco format annotation
     is_train_set = True
     if is_train_set:
-        coco_anno_file = open('./road_annotations/coco_annotation_train2_quarter.json', 'w')
+        coco_anno_file = open('./road_annotations/coco_annotation_all_quarter.json', 'w')
     else:
         coco_anno_file = open('./coco_annotation_val2.json', 'w')
     
@@ -62,7 +62,7 @@ if __name__ == '__main__':
     train_video_list = []
     val_video_list = []
     for i in final_annots['db'].keys():
-        if 'train_2' in final_annots['db'][i]['split_ids']:
+        if 'all' in final_annots['db'][i]['split_ids']:
             train_video_list.append(i)
         if 'val_2' in final_annots['db'][i]['split_ids']:
             val_video_list.append(i)
@@ -78,6 +78,8 @@ if __name__ == '__main__':
         video_list = train_video_list
     else:
         video_list = val_video_list
+
+    print(f'#Videos = {len(video_list)}')
 
     for video_name in video_list:
         print(' Creating for', video_name, '\n\n')
