@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  mmdet:
+    build:
+      context: .
+      dockerfile: mmdet.Dockerfile
+    image: git.uwaterloo.ca:5050/watonomous/registry/mmdetection
+    volumes:
+      - /mnt/wato-drive/road:/road
+      - ./:/project/mmdetection
+    ipc: host
+    tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            device_ids: ['0','1'] # Change to ['0', '1'] to use two GPUs
+            capabilities: [gpu]
+
+

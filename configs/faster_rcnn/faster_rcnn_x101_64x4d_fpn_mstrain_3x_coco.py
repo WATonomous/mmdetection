@@ -14,3 +14,16 @@ model = dict(
         style='pytorch',
         init_cfg=dict(
             type='Pretrained', checkpoint='open-mmlab://resnext101_64x4d')))
+
+data = dict(
+    samples_per_gpu=2,
+    workers_per_gpu=2,
+    train=dict(
+        ann_file='./road_annotations/coco_annotation_all_quarter.json',
+        img_prefix='/data/dataset/road-dataset/road/'),
+    val=dict(
+        ann_file='./road_annotations/coco_annotation_all_quarter.json',
+        img_prefix='/data/dataset/road-dataset/road/'),
+    test=dict(
+        ann_file='./road_annotations/coco_annotation_all_quarter.json',
+        img_prefix='/data/dataset/road-dataset/road/'))
