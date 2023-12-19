@@ -1,3 +1,5 @@
+Forked from https://github.com/open-mmlab/mmdetection
+
 <div align="center">
   <img src="resources/mmdet-logo.png" width="600"/>
   <div>&nbsp;</div>
